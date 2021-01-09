@@ -43,5 +43,28 @@ public class Cart implements Serializable {
 	private String name;
 	
 	@OneToMany(mappedBy="cart", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CartItem> cartItems = new HashSet<CartItem>();	
+	private Set<CartItem> cartItems = new HashSet<CartItem>();
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<CartItem> getCartItems() {
+		return cartItems;
+	}
+//	public void setCartItems(Set<CartItem> cartItems) {
+//		this.cartItems = cartItems;
+//	}
+	
+	// TODO... add belong to:  in order to indicate the user
 }

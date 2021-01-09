@@ -3,9 +3,9 @@ package mc.shoppingcart.dto;
 /*
  * Shopping Card Item Data Transfer Object
  */
-public class ShoppingCardItemDto {
+public class ShoppingCartItemDto {
 	private String itemName;
-	private long itemPrice;
+	private double itemPrice;
 	private int numOfItem;
 	
 	public String getItemName() {
@@ -15,10 +15,10 @@ public class ShoppingCardItemDto {
 		this.itemName = itemName;
 	}
 	
-	public long getItemPrice() {
+	public double getItemPrice() {
 		return itemPrice;
 	}
-	public void setItemPrice(long itemPrice) {
+	public void setItemPrice(double itemPrice) {
 		this.itemPrice = itemPrice;
 	}
 	

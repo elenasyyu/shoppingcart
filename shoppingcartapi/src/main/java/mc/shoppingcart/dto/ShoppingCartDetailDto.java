@@ -2,9 +2,9 @@ package mc.shoppingcart.dto;
 
 import java.util.List;
 
-public class ShoppingCardDetailDto {
+public class ShoppingCartDetailDto {
 	private String name;
-	private List<ShoppingCardItemDto> items;
+	private List<ShoppingCartItemDto> items;
 	
 	public String getName() {
 		return name;
@@ -13,10 +13,10 @@ public class ShoppingCardDetailDto {
 		this.name = name;
 	}
 	
-	public List<ShoppingCardItemDto> getItems() {
+	public List<ShoppingCartItemDto> getItems() {
 		return items;
 	}
-	public void setItems(List<ShoppingCardItemDto> items) {
+	public void setItems(List<ShoppingCartItemDto> items) {
 		this.items = items;
 	}
 }

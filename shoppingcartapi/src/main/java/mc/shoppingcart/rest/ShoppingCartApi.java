@@ -1,9 +1,11 @@
 package mc.shoppingcart.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,34 +17,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mc.shoppingcart.dto.ShoppingCardDetailDto;
+import mc.shoppingcart.dto.ShoppingCartDetailDto;
+import mc.shoppingcart.entity.Cart;
+import mc.shoppingcart.service.ICartService;
+import mc.shoppingcart.util.DtoConverter;
 
 @RestController
 @RequestMapping("/api/shoppingcart")
 public class ShoppingCartApi {
+	@Autowired
+	ICartService cartService;
+
     @GetMapping("")
-    public ResponseEntity<Iterable<ShoppingCardDetailDto>> getAll() {
-//        Iterable<Pet> pets = petService.getAllPets();
-        return new ResponseEntity<>(new ArrayList<ShoppingCardDetailDto>(), HttpStatus.OK);
+    public ResponseEntity<Iterable<ShoppingCartDetailDto>> getAll() {
+    	List<Cart> carts = cartService.getAllCarts();
+    	
+    	List<ShoppingCartDetailDto> cartsDto = new ArrayList<ShoppingCartDetailDto>();
+    	carts.forEach(cart -> {
+    		cartsDto.add(DtoConverter.convertCartToDto(cart));
+    	});
+    	    	
+    	return new ResponseEntity<>(cartsDto, HttpStatus.OK);
     }
     
     @GetMapping("/{cartname}")
-    public ResponseEntity<ShoppingCardDetailDto> get(@PathVariable(name = "cartname") String cartname) {
-//        Pet pet = petService.getPet(petId);
-//        if (pet == null) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-        return new ResponseEntity<>(new ShoppingCardDetailDto(), HttpStatus.OK);
+    public ResponseEntity<ShoppingCartDetailDto> get(@PathVariable(name = "cartname") String cartname) {
+    	Cart cart = cartService.getCart(cartname);
+        return new ResponseEntity<>(DtoConverter.convertCartToDto(cart), HttpStatus.OK);
     }
     
     @PostMapping("")
-    public ResponseEntity<ShoppingCardDetailDto> create(@Valid @RequestBody ShoppingCardDetailDto cardDetailDto) {
-    	return new ResponseEntity<>(new ShoppingCardDetailDto(), HttpStatus.OK);
+    public ResponseEntity<ShoppingCartDetailDto> create(@Valid @RequestBody ShoppingCartDetailDto cardDetailDto) {
+    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
     }
     
     @PutMapping("")
-    public ResponseEntity<ShoppingCardDetailDto> update(@Valid @RequestBody ShoppingCardDetailDto cardDetailDto) {
-    	return new ResponseEntity<>(new ShoppingCardDetailDto(), HttpStatus.OK);
+    public ResponseEntity<ShoppingCartDetailDto> update(@Valid @RequestBody ShoppingCartDetailDto cardDetailDto) {
+    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
     }
     
     @DeleteMapping("/{cartname}")
@@ -51,13 +62,13 @@ public class ShoppingCartApi {
     }
     
     @DeleteMapping("/{cartname}/{itemName}")
-    public ResponseEntity<ShoppingCardDetailDto> deleteItemFromCart(@PathVariable(name = "cartname") String cartname,
+    public ResponseEntity<ShoppingCartDetailDto> deleteItemFromCart(@PathVariable(name = "cartname") String cartname,
     		@PathVariable(name = "itemName") String itemName) {
-    	return new ResponseEntity<>(new ShoppingCardDetailDto(), HttpStatus.OK);
+    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
     }
     
     @PostMapping("/{cartname}")
-    public ResponseEntity<ShoppingCardDetailDto> checkout(@PathVariable(name = "cartname") String cartname) {
-    	return new ResponseEntity<>(new ShoppingCardDetailDto(), HttpStatus.OK);
+    public ResponseEntity<ShoppingCartDetailDto> checkout(@PathVariable(name = "cartname") String cartname) {
+    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
     }
 }
