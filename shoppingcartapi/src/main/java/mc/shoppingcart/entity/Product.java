@@ -38,7 +38,6 @@ public class Product implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@NotEmpty
 	@Column(name = "PRICE", nullable = false)
 	private double price;
 	

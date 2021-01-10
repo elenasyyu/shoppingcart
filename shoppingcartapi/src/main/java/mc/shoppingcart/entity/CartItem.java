@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -41,7 +40,6 @@ public class CartItem implements Serializable {
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")
     private Product product;
 		
-	@NotEmpty
 	@Column(name = "QUANTITY", nullable = false)
 	private int quantity;
 

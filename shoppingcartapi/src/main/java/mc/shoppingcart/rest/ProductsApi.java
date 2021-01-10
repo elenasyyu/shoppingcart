@@ -1,7 +1,8 @@
 package mc.shoppingcart.rest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +28,11 @@ public class ProductsApi {
     @GetMapping("")
     public ResponseEntity<Iterable<ProductDto>> getAll() {
     	List<Product> products = productService.getAllProducts();
-    	
-    	List<ProductDto> productsDto = new ArrayList<ProductDto>();
-    	products.forEach(product -> {
-    		productsDto.add(DtoConverter.convertProductToDto(product));
-    	});
+
+    	List<ProductDto> productsDto = StreamSupport
+    			.stream(products.spliterator(), false)
+    			.map(DtoConverter::convertProductToDto)
+    			.collect(Collectors.toList());
     	    	
     	return new ResponseEntity<>(productsDto, HttpStatus.OK);
     }

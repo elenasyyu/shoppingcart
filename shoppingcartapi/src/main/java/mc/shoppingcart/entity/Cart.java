@@ -62,9 +62,9 @@ public class Cart implements Serializable {
 	public Set<CartItem> getCartItems() {
 		return cartItems;
 	}
-//	public void setCartItems(Set<CartItem> cartItems) {
-//		this.cartItems = cartItems;
-//	}
+	public void setCartItems(Set<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
 	
 	// TODO... add belong to:  in order to indicate the user
 }
