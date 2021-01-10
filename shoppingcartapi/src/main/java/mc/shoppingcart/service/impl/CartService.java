@@ -3,6 +3,8 @@ package mc.shoppingcart.service.impl;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,6 +22,8 @@ import mc.shoppingcart.service.ICartService;
 
 @Service
 public class CartService implements ICartService {
+	private final static Logger logger = Logger.getLogger(CartService.class.getName());
+	
 	@Autowired
 	private CartRepository cartRepository;
 	
@@ -64,8 +68,10 @@ public class CartService implements ICartService {
 		// Step 1:  Try to see if the card already existed...
 		Cart objUpdateCart = cartRepository.findFirstByName(requestedCart.getName());
 
-		if (objUpdateCart == null)
+		if (objUpdateCart == null) {
+			logger.log(Level.SEVERE, "Failed to update Cart:  Cart " + requestedCart.getName() + " not found!");
 			throw new IllegalArgumentException("Cart " + requestedCart.getName() + " not found!");
+		}
 
 		insertItems(requestedCart.getCartItems(), objUpdateCart);
 		return cartRepository.save(objUpdateCart);
