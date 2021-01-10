@@ -9,4 +9,5 @@ public interface ICartService {
 	public Cart getCart(String name);
 	
 	public Cart createCart(final Cart requestedCart) throws IllegalArgumentException;
+	public Cart updateCart(final Cart requestedCart) throws IllegalArgumentException;
 }

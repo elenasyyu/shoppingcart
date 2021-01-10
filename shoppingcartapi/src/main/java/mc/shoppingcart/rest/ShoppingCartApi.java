@@ -1,6 +1,5 @@
 package mc.shoppingcart.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -76,8 +75,19 @@ public class ShoppingCartApi {
     }
     
     @PutMapping("")
-    public ResponseEntity<ShoppingCartDetailDto> update(@Valid @RequestBody ShoppingCartDetailDto cardDetailDto) {
-    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
+    public ResponseEntity<Boolean> update(@Valid @RequestBody ShoppingCartDetailDto cardDetailDto) 
+    	throws ShoppingCartException {
+    	try {
+	    	Cart requestedCart = DtoConverter.convertCartFromDto(cardDetailDto);
+	    	cartService.updateCart(requestedCart);
+	    	return new ResponseEntity<>(true, HttpStatus.OK);
+    	} catch (Exception e) {
+    		ShoppingCartException scException = new ShoppingCartException();
+    		ExceptionInfo info = new ExceptionInfo("Cart", "Error when creating cart:  name " + cardDetailDto.getName());
+    		scException.AddException(info);
+    		
+    		throw scException;    		
+    	}
     }
     
     @DeleteMapping("/{cartname}")

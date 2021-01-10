@@ -1,6 +1,8 @@
 package mc.shoppingcart.service.impl;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -43,38 +45,59 @@ public class CartService implements ICartService {
 		// Step 2:  Create a new one if not existed
 		if (objNewCart == null) {
 			objNewCart = new Cart();
-			objNewCart.setName(requestedCart.getName());
+			
+			// TODO... integrate the user later on...
+			String cartName = (requestedCart.getName() != null ? requestedCart.getName() : generateCartName("user"));
+			objNewCart.setName(cartName);
 		}
 		
+		insertItems(requestedCart.getCartItems(), objNewCart);
+		return cartRepository.save(objNewCart);
+	}
+
+	@Override
+	public Cart updateCart(Cart requestedCart) throws IllegalArgumentException {
+		// Step 1:  Try to see if the card already existed...
+		Cart objUpdateCart = cartRepository.findFirstByName(requestedCart.getName());
+
+		if (objUpdateCart == null)
+			throw new IllegalArgumentException("Cart " + requestedCart.getName() + " not found!");
+
+		insertItems(requestedCart.getCartItems(), objUpdateCart);
+		return cartRepository.save(objUpdateCart);
+	}
+	
+	private void insertItems(final Set<CartItem> objFromItems, Cart objToCart) {
 		// Clean up all the item, and replace with the one from the request
-		objNewCart.getCartItems().clear();
+		objToCart.getCartItems().clear();
 		
 		// Go through all the product to see if it is valid
-		for (CartItem reqItem : requestedCart.getCartItems()) {
+		for (CartItem fromItem : objFromItems) {
 			// Create new item
 			CartItem objNewItem = new CartItem();
 			
 			// Cart
-			objNewItem.setCart(objNewCart);
+			objNewItem.setCart(objToCart);
 			
 			// Product
-			Product reqProduct = productRepository.findFirstByName(reqItem.getProduct().getName());
-			if (reqProduct == null)
-				throw new IllegalArgumentException("Invalid product " + reqItem.getProduct().getName());
-			
-			if (reqProduct.getPrice() != reqItem.getProduct().getPrice())
-				throw new IllegalArgumentException("Invalid product price" + reqItem.getProduct().getPrice() + 
-						" for " + reqItem.getProduct().getName());
-			
-			objNewItem.setProduct(reqProduct);
+			Product fromProduct = productRepository.findFirstByName(fromItem.getProduct().getName());
+			if (fromProduct == null)
+				throw new IllegalArgumentException("Invalid product " + fromItem.getProduct().getName());
+		
+			if (fromProduct.getPrice() != fromItem.getProduct().getPrice())
+				throw new IllegalArgumentException("Invalid product price" + fromItem.getProduct().getPrice() + 
+					" for " + fromItem.getProduct().getName());
+			objNewItem.setProduct(fromProduct);
 			
 			// Quantity
-			objNewItem.setQuantity(reqItem.getQuantity());
+			objNewItem.setQuantity(fromItem.getQuantity());
 			
 			// Add to Cart
-			objNewCart.getCartItems().add(objNewItem);
+			objToCart.getCartItems().add(objNewItem);
 		};
-		
-		return cartRepository.save(objNewCart);
+	}
+	
+	private final String generateCartName(final String username) {
+		return username + Instant.now().toEpochMilli();
 	}
 }
