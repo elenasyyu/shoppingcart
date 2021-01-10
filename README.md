@@ -54,3 +54,12 @@ Example:
 
 ### Update Cart
 Put http://localhost:8080/api/shoppingcart with a body in json format. Will use the same json format in Create Cart
+
+### Delete Item from Cart
+DELETE http://localhost:8080/api/shoppingcart/<cart name>/<product name>
+For example: http://localhost:8080/api/shoppingcart/ononcart/apple
+
+### Delete Cart
+DELETE http://localhost:8080/api/shoppingcart/<cart name>
+For example:  http://localhost:8080/api/shoppingcart/ononcart
+
