@@ -9,6 +9,7 @@ A Shopping Cart Micro-Service is created in shoppingcartapi.  It will suppport t
 6. Delete Cart
 7. Get All Carts
 8. Get specific cart
+9. Checkout cart
 
 ## Table Structure
 The following table are created to store the product and cart information
@@ -70,3 +71,7 @@ Get http://localhost:8080/api/shoppingcart
 ### Get Specific Cart
 Get http://localhost:8080/api/shoppingcart/cart_name
 For example:  http://localhost:8080/api/shoppingcart/ononcart
+
+### Checkout Cart
+POST http://localhost:8080/api/shoppingcart/checkout/cart_name
+For example:  http://localhost:8080/api/shoppingcart/checkout/ononcart
