@@ -92,8 +92,18 @@ public class ShoppingCartApi {
     }
     
     @DeleteMapping("/{cartname}")
-    public ResponseEntity<Void> deleteCart(@PathVariable(name = "cartname") String cartname) {
-    	return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteCart(@PathVariable(name = "cartname") String cartname)
+    	throws ShoppingCartException {
+    	try {
+	    	cartService.deleteCart(cartname);
+	    	return new ResponseEntity<>(HttpStatus.OK);
+    	} catch (Exception e) {
+    		ShoppingCartException scException = new ShoppingCartException();
+    		ExceptionInfo info = new ExceptionInfo("Cart", "Error when delete cart:  name " + cartname);
+    		scException.AddException(info);
+    		
+    		throw scException;    		
+    	}
     }
     
     @DeleteMapping("/{cartname}/{itemName}")

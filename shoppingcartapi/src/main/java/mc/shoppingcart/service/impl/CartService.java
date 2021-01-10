@@ -86,7 +86,17 @@ public class CartService implements ICartService {
 		
 		return cartRepository.save(objDeleteCart);
 	}
-	
+
+	@Override
+	public void deleteCart(String cartName) throws IllegalArgumentException {
+		Cart objDeleteCart = cartRepository.findFirstByName(cartName);
+
+		if (objDeleteCart == null)
+			throw new IllegalArgumentException("Cart " + cartName + " not found!");
+
+		cartRepository.delete(objDeleteCart);
+	}
+		
 	private void insertItems(final Set<CartItem> objFromItems, Cart objToCart) {
 		// Clean up all the item, and replace with the one from the request
 		objToCart.getCartItems().clear();

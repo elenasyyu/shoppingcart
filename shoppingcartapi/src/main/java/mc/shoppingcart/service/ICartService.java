@@ -12,4 +12,5 @@ public interface ICartService {
 	public Cart updateCart(final Cart requestedCart) throws IllegalArgumentException;
 	
 	public Cart deleteItemsFromCart(final String cartName, final List<String> productNames) throws IllegalArgumentException;
+	public void deleteCart(final String cartName) throws IllegalArgumentException;
 }
