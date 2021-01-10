@@ -75,3 +75,9 @@ For example:  http://localhost:8080/api/shoppingcart/ononcart
 ### Checkout Cart
 POST http://localhost:8080/api/shoppingcart/checkout/cart_name
 For example:  http://localhost:8080/api/shoppingcart/checkout/ononcart
+
+## Improve Item
+```
+The following item is scheduled to be done in next phase
+1. Currently the micro-service is just accessing the database directly.  Should add cache in the future to prevent go to database directly
+```
