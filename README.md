@@ -22,7 +22,7 @@ The following are the URL for sending API
 Get http://localhost:8080/api/products
 
 ### Get specific product
-Get http://localhost:8080/api/products/<product name>
+Get http://localhost:8080/api/products/product_name
 For example: http://localhost:8080/api/products/apple
 
 ### Create Cart
@@ -56,10 +56,10 @@ Example:
 Put http://localhost:8080/api/shoppingcart with a body in json format. Will use the same json format in Create Cart
 
 ### Delete Item from Cart
-DELETE http://localhost:8080/api/shoppingcart/<cart name>/<product name>
+DELETE http://localhost:8080/api/shoppingcart/cart_name/product_name
 For example: http://localhost:8080/api/shoppingcart/ononcart/apple
 
 ### Delete Cart
-DELETE http://localhost:8080/api/shoppingcart/<cart name>
+DELETE http://localhost:8080/api/shoppingcart/cart_name
 For example:  http://localhost:8080/api/shoppingcart/ononcart
 
