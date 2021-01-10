@@ -42,6 +42,10 @@ public class Cart implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 	
+	@NotEmpty
+	@Column(name = "STATUS", nullable = false)
+	private String status;
+	
 	@OneToMany(mappedBy="cart", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CartItem> cartItems = new HashSet<CartItem>();
 
@@ -64,6 +68,13 @@ public class Cart implements Serializable {
 	}
 	public void setCartItems(Set<CartItem> cartItems) {
 		this.cartItems = cartItems;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	// TODO... add belong to:  in order to indicate the user

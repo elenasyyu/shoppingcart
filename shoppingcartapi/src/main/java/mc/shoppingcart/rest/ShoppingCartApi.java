@@ -124,8 +124,18 @@ public class ShoppingCartApi {
     	}
     }
     
-    @PostMapping("/{cartname}")
-    public ResponseEntity<ShoppingCartDetailDto> checkout(@PathVariable(name = "cartname") String cartname) {
-    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
+    @PostMapping("/checkout/{cartname}")
+    public ResponseEntity<Boolean> checkout(@PathVariable(name = "cartname") String cartname) 
+    	throws ShoppingCartException {
+    	try {
+    		cartService.checkoutCart(cartname);
+	    	return new ResponseEntity<>(true, HttpStatus.OK);
+    	} catch (Exception e) {
+    		ShoppingCartException scException = new ShoppingCartException();
+    		ExceptionInfo info = new ExceptionInfo("Cart", "Error when checkingout cart " + cartname);
+    		scException.AddException(info);
+    		
+    		throw scException;    		
+    	}
     }
 }

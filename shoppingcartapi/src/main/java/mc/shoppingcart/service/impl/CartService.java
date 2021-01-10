@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import mc.shoppingcart.constant.CartStatus;
 import mc.shoppingcart.entity.Cart;
 import mc.shoppingcart.entity.CartItem;
 import mc.shoppingcart.entity.Product;
+import mc.shoppingcart.exception.ShoppingCartInternalErrorException;
 import mc.shoppingcart.repository.CartRepository;
 import mc.shoppingcart.repository.ProductRepository;
 import mc.shoppingcart.repositorySpecs.CartSpecification;
@@ -49,6 +51,8 @@ public class CartService implements ICartService {
 			// TODO... integrate the user later on...
 			String cartName = (requestedCart.getName() != null ? requestedCart.getName() : generateCartName("user"));
 			objNewCart.setName(cartName);
+			
+			objNewCart.setStatus(CartStatus.PROCESSING.getStatus());
 		}
 		
 		insertItems(requestedCart.getCartItems(), objNewCart);
@@ -96,6 +100,20 @@ public class CartService implements ICartService {
 
 		cartRepository.delete(objDeleteCart);
 	}
+	
+	@Override
+	public Cart checkoutCart(String cartName) throws IllegalArgumentException, ShoppingCartInternalErrorException {
+		Cart objCheckoutCart = cartRepository.findFirstByName(cartName);
+		
+		if (objCheckoutCart == null)
+			throw new IllegalArgumentException("Cart " + cartName + " not found!");
+		
+		if (CartStatus.CHECKOUT.isMatched(objCheckoutCart.getStatus()))
+			throw new ShoppingCartInternalErrorException("Cart " + cartName + " already in checkout status. Request failed!");
+		
+		objCheckoutCart.setStatus(CartStatus.CHECKOUT.getStatus());
+		return cartRepository.save(objCheckoutCart);
+	}	
 		
 	private void insertItems(final Set<CartItem> objFromItems, Cart objToCart) {
 		// Clean up all the item, and replace with the one from the request
