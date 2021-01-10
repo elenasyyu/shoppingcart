@@ -10,4 +10,6 @@ public interface ICartService {
 	
 	public Cart createCart(final Cart requestedCart) throws IllegalArgumentException;
 	public Cart updateCart(final Cart requestedCart) throws IllegalArgumentException;
+	
+	public Cart deleteItemsFromCart(final String cartName, final List<String> productNames) throws IllegalArgumentException;
 }

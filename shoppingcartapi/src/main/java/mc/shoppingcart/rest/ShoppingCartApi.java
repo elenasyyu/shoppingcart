@@ -1,5 +1,6 @@
 package mc.shoppingcart.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -96,9 +97,21 @@ public class ShoppingCartApi {
     }
     
     @DeleteMapping("/{cartname}/{itemName}")
-    public ResponseEntity<ShoppingCartDetailDto> deleteItemFromCart(@PathVariable(name = "cartname") String cartname,
-    		@PathVariable(name = "itemName") String itemName) {
-    	return new ResponseEntity<>(new ShoppingCartDetailDto(), HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteItemFromCart(@PathVariable(name = "cartname") String cartname,
+    		@PathVariable(name = "itemName") String itemName) 
+    	throws ShoppingCartException {
+    	try {
+    		List<String> productNames = new ArrayList<String>();
+    		productNames.add(itemName);
+    		cartService.deleteItemsFromCart(cartname, productNames);
+	    	return new ResponseEntity<>(true, HttpStatus.OK);
+    	} catch (Exception e) {
+    		ShoppingCartException scException = new ShoppingCartException();
+    		ExceptionInfo info = new ExceptionInfo("Cart", "Error when delete item " + itemName + " from cart " + cartname);
+    		scException.AddException(info);
+    		
+    		throw scException;    		
+    	}
     }
     
     @PostMapping("/{cartname}")
