@@ -12,6 +12,7 @@ A Shopping Cart Micro-Service is created in shoppingcartapi.  It will suppport t
 9. Checkout cart
 
 ## Table Structure
+H2 Database has been used in shoppingcardapi micro-service.  To access database, use the following link:  http://localhost:8080/h2-console.  
 The following table are created to store the product and cart information
 1. PRODUCT
 2. CART
