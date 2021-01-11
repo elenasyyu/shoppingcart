@@ -66,6 +66,23 @@ public class ShoppingCartTest
     	createCart();
     	cartDetail = getCart("ononcart");
     	assertNotNull(cartDetail);
+    	assertEquals("ononcart", cartDetail.getName());
+    	
+    	for (ShoppingCartItemDto item : cartDetail.getItems()) {
+    		if (item.getItemName().equals("apple")) {
+    			assertEquals(1.0, item.getItemPrice(), 0);
+    		} else if (item.getItemName().equals("orange")) {
+    			assertEquals(1.1, item.getItemPrice(), 0);
+    		} else if (item.getItemName().equals("banana")) {
+    			assertEquals(1.2, item.getItemPrice(), 0);
+			} else if (item.getItemName().equals("pineapple")) {
+				assertEquals(1.3, item.getItemPrice(), 0);
+			} else if (item.getItemName().equals("pear")) {
+				assertEquals(1.4, item.getItemPrice(), 0);
+			} else if (item.getItemName().equals("cherry")) {
+				assertEquals(1.5, item.getItemPrice(), 0);
+			}
+    	}
     }
     
     /////////////////////////////////////////////////////////
