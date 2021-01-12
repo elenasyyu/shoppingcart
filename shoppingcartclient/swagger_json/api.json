@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Shopping Cart Client",
     "license": {
-      "name": "Eleanor"
+      "name": "Eleanor Yu"
     }
   },
   "basePath": "/api",
@@ -48,6 +48,38 @@
           }
         }
       }
+    },
+    "/shoppingcart/{cart_name}": {
+      "get": {
+        "tags": [
+          "shoppingcart"
+        ],
+        "summary": "Get detail on certain shopping cart",
+        "operationId": "get",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cart_name",
+            "type": "string",
+            "required": true,
+            "description": "Cart Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Cart"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -59,6 +91,35 @@
         },
         "price": {
           "type": "number"
+        }
+      }
+    },
+    "Cart": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CartItem"
+          }
+        }
+      }
+    },
+    "CartItem": {
+      "type": "object",
+      "properties": {
+        "itemName": {
+          "type": "string"
+        },
+        "itemPrice": {
+          "type": "number"
+        },
+        "numOfItem": {
+          "type": "number",
+          "format": "int64"
         }
       }
     }

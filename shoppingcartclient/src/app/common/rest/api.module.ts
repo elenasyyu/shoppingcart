@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
 import { ProductsService } from './services/products.service';
+import { ShoppingcartService } from './services/shoppingcart.service';
 
 /**
  * Provider for all Api services, plus ApiConfiguration
@@ -18,7 +19,8 @@ import { ProductsService } from './services/products.service';
   declarations: [],
   providers: [
     ApiConfiguration,
-    ProductsService
+    ProductsService,
+    ShoppingcartService
   ],
 })
 export class ApiModule {

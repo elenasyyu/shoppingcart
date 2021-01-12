@@ -100,3 +100,11 @@ node_modules/.bin/ng-swagger-gen -i json_file_name -0 target_directory
 For example:
 "C:\gitproject\shoppingcart\shoppingcartclient\node_modules\.bin\ng-swagger-gen" -i "C:\gitproject\shoppingcart\shoppingcartclient\swagger_json\api.json" -o src/app/common/rest
 ```
+
+## Create Component
+Using the following command to create component
+
+```
+ng g c path
+For example: ng g c /home/products
+```
