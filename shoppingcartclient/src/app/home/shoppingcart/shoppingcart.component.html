@@ -1,0 +1,14 @@
+<ul class="list-cart">
+  <li class="list-cart-item d-flex justify-content-between align-items-center" 
+  *ngFor="let cartItem of cartItems" 
+  >
+    <label> name: </label>
+    <span>{{cartItem.itemName}} </span>
+    , 
+    <label> price: </label>
+    <span>{{cartItem.itemPrice}}</span>
+    ,
+    <label> quantity: </label>
+    <span>{{cartItem.numOfItem}}</span>
+  </li>
+</ul>
