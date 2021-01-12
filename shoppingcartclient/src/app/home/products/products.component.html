@@ -1,0 +1,11 @@
+<ul class="list-product">
+  <li class="list-product-item d-flex justify-content-between align-items-center" 
+  *ngFor="let product of products" 
+  >
+    <label> name: </label>
+    <span>{{product.name}} </span>
+    , 
+    <label> price: </label>
+    <span>{{product.price}}</span>
+  </li>
+</ul>

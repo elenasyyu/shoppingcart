@@ -1,0 +1,66 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Shopping Cart Client",
+    "version": "1.0.0",
+    "title": "Shopping Cart Client",
+    "license": {
+      "name": "Eleanor"
+    }
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "products",
+      "description": "Access to Products"
+    },
+    {
+      "name": "shoppingcart",
+      "description": "Access to Shopping Cart"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get All Products",
+        "operationId": "getAll",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

@@ -76,9 +76,27 @@ For example:  http://localhost:8080/api/shoppingcart/ononcart
 ### Checkout Cart
 POST http://localhost:8080/api/shoppingcart/checkout/cart_name
 For example:  http://localhost:8080/api/shoppingcart/checkout/ononcart
-
+ 
 ## Improve Item (in the future)
 ```
 The following item is scheduled to be done in next phase
 1. Currently the micro-service is just accessing the database directly.  Should add cache in the future to prevent go to database directly
+```
+
+# shoppingcartclient
+## Create the project
+This project is created using Angular CLI (https://github.com/angular/angular-cli)
+
+## Create REST API Swagger File
+The swagger json file is created using the following link:  https://editor.swagger.io/
+
+## Create the RESP API
+The REST API interface will be created by ng-swagger-gen (https://www.npmjs.com/package/ng-swagger-gen):
+
+```
+npm install ng-swagger-gen --save-dev
+node_modules/.bin/ng-swagger-gen -i json_file_name -0 target_directory
+
+For example:
+"C:\gitproject\shoppingcart\shoppingcartclient\node_modules\.bin\ng-swagger-gen" -i "C:\gitproject\shoppingcart\shoppingcartclient\swagger_json\api.json" -o src/app/common/rest
 ```
