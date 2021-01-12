@@ -80,6 +80,38 @@
           }
         }
       }
+    },
+    "/shoppingcart": {
+      "post": {
+        "tags": [
+          "shoppingcart"
+        ],
+        "summary": "Create a shopping cart with an item",
+        "operationId": "create",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "cartdetail",
+            "schema": {
+              "$ref": "#/definitions/Cart"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {

@@ -9,6 +9,15 @@
   <h2> Products </h2>
   <app-products></app-products>
 
+  <h3>Item Action</h3>
+  <label> Name: </label>
+  <input (keyup)="onNameChange($event)"> 
+  <label> Quantity: </label>
+  <input (keyup)="onQuantityChange($event)"> 
+  <br><br>
+  <button (click)="createNewCartWithItem()">Create New Cart with Item</button>
+
+  <br>
   <h2> Shopping Cart -- ononcart </h2>
   <app-shoppingcart></app-shoppingcart>
 </div>

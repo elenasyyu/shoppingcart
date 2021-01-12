@@ -17,6 +17,7 @@ import { Cart } from '../models/cart';
 })
 class ShoppingcartService extends __BaseService {
   static readonly getPath = '/shoppingcart/{cart_name}';
+  static readonly createPath = '/shoppingcart';
 
   constructor(
     config: __Configuration,
@@ -60,6 +61,44 @@ class ShoppingcartService extends __BaseService {
   get(cartName: string): __Observable<Cart> {
     return this.getResponse(cartName).pipe(
       __map(_r => _r.body as Cart)
+    );
+  }
+
+  /**
+   * Create a shopping cart with an item
+   * @param cartdetail undefined
+   * @return OK
+   */
+  createResponse(cartdetail?: Cart): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = cartdetail;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/shoppingcart`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * Create a shopping cart with an item
+   * @param cartdetail undefined
+   * @return OK
+   */
+  create(cartdetail?: Cart): __Observable<boolean> {
+    return this.createResponse(cartdetail).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 }
