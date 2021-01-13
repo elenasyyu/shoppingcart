@@ -108,3 +108,6 @@ Using the following command to create component
 ng g c path
 For example: ng g c /home/products
 ```
+
+## To start the GUI
+npm run start

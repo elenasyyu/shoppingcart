@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../app/common/rest/models/product'
+import { Cart } from '../app/common/rest/models/cart'
+import { CartItem } from '../app/common/rest/models/cart-item'
 import { ProductsService } from '../app/common/rest/services/products.service'
 import { ShoppingcartService } from '../app/common/rest/services/shoppingcart.service'
 
@@ -17,6 +19,7 @@ export class AppComponent {
   itemQuantity: number = null;
 
   private products: Product[];
+  private updateCart: Cart;
 
   constructor(private productService: ProductsService,
     private shoppingcartService: ShoppingcartService) { }
@@ -72,6 +75,26 @@ export class AppComponent {
         ]
       }
     )
+    .toPromise()
+    .then(data => {
+    })
+    .catch(err => {
+    });
+  }
+
+  updateCartWithNewItem() {
+    this.shoppingcartService.get(ShoppingCartConstants.CART_NAME).subscribe(cart => this.updateCart = cart);
+    this.updateCart.items.push(
+      {
+        itemName: this.itemName,
+        itemPrice: this.getProductPrice(this.itemName),        
+        numOfItem:  this.itemQuantity
+      }
+    )
+    console.log(this.updateCart.name)
+    this.updateCart.items.forEach(item => console.log(item.itemName + ": Price = " + item.itemPrice + ", Quantity = " + item.numOfItem));
+
+    this.shoppingcartService.update(this.updateCart)
     .toPromise()
     .then(data => {
     })

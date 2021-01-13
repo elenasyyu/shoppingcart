@@ -74,6 +74,25 @@ paths:
           description: OK
           schema:
             type: boolean
+    put:
+      tags:
+        - shoppingcart
+      summary:  Update Shopping Cart
+      operationId: update
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: cartdetail
+          schema:
+            $ref: '#/definitions/Cart'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
 definitions:
   Product:
     type: object
