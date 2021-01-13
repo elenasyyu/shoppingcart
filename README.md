@@ -110,7 +110,7 @@ For example: ng g c /home/products
 ```
 
 ## To start the GUI
-npm run start
+npm run start and then goto http://localhost:4200/
 
 ## Improve Item (in the future)
 ```
