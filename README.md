@@ -111,3 +111,9 @@ For example: ng g c /home/products
 
 ## To start the GUI
 npm run start
+
+## Improve Item (in the future)
+```
+The following item is scheduled to be done in next phase
+1. Need to refresh the page automatically for each create/update/delete action
+```

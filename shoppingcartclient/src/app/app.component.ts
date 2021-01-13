@@ -101,4 +101,17 @@ export class AppComponent {
     .catch(err => {
     });
   }
+
+  deleteItemFromCart() {
+    this.shoppingcartService.deleteItemFromCart(
+      {
+        cartName: ShoppingCartConstants.CART_NAME,
+        productName: this.itemName
+      })
+      .toPromise()
+      .then(data => {
+      })
+      .catch(err => {
+      });
+  }
 }

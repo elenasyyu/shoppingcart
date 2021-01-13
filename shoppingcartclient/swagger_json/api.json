@@ -142,6 +142,45 @@
           }
         }
       }
+    },
+    "/shoppingcart/{cart_name}/{product_name}": {
+      "delete": {
+        "tags": [
+          "shoppingcart"
+        ],
+        "summary": "delete item from Shopping Cart",
+        "operationId": "deleteItemFromCart",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cart_name",
+            "type": "string",
+            "required": true,
+            "description": "Cart Name"
+          },
+          {
+            "in": "path",
+            "name": "product_name",
+            "type": "string",
+            "required": true,
+            "description": "Product Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
